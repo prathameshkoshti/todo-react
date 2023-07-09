@@ -1,0 +1,71 @@
+.navbar.menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 0;
+}
+
+.board {
+  height: calc(100vh - 106px + 1rem);
+}
+
+.board.ui.grid > .row {
+  padding-bottom: 0;
+}
+
+.board.ui.grid > .row > .column {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.board .column > * {
+  padding: 1rem 0;
+}
+
+.tabs {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.todo {
+  padding: 0.5rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.section-header.ui.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0;
+  padding: 1.5rem 0;
+}
+
+.divider.no-spacing {
+  padding: 0;
+  margin: 0;
+}
+
+.todo-list {
+  overflow-y: auto;
+}
+
+.tab {
+  width: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-todo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
+}
+
+.board-name.header.ui {
+  margin-bottom: 3rem;
+}
