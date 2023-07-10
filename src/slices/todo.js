@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { client } from "../api/client";
+import { setMessage } from "./message";
 
 export const fetchTodo = createAsyncThunk("todo/fetch", async (boardId) => {
   const response = await client.get(`todo/${boardId}`);
@@ -12,6 +13,20 @@ export const createTodo = createAsyncThunk(
     const state = getState();
     const response = await client.post("todo", { ...params });
     dispatch(fetchTodo(state.todo.selectedBoard));
+    dispatch(
+      setMessage({
+        type: response.success ? "success" : "error",
+        message: response.message,
+      }),
+    );
+    setTimeout(() => {
+      dispatch(
+        setMessage({
+          type: "",
+          message: "",
+        }),
+      );
+    }, 2000);
     return response.data;
   },
 );
@@ -22,6 +37,20 @@ export const completeTodo = createAsyncThunk(
     const state = getState();
     const response = await client.patch(`todo/complete/${id}`);
     dispatch(fetchTodo(state.todo.selectedBoard));
+    dispatch(
+      setMessage({
+        type: response.success ? "success" : "error",
+        message: response.message,
+      }),
+    );
+    setTimeout(() => {
+      dispatch(
+        setMessage({
+          type: "",
+          message: "",
+        }),
+      );
+    }, 2000);
     return response.data;
   },
 );
@@ -32,6 +61,20 @@ export const deleteTodo = createAsyncThunk(
     const state = getState();
     const response = await client.delete(`todo/${id}`);
     dispatch(fetchTodo(state.todo.selectedBoard));
+    dispatch(
+      setMessage({
+        type: response.success ? "success" : "error",
+        message: response.message,
+      }),
+    );
+    setTimeout(() => {
+      dispatch(
+        setMessage({
+          type: "",
+          message: "",
+        }),
+      );
+    }, 2000);
     return response.data;
   },
 );

@@ -24,6 +24,8 @@ export async function client(endpoint, { method, body, ...customConfig } = {}) {
       return {
         status: "success",
         data: res.data,
+        success: res.success,
+        message: res.message,
         headers: response.headers,
         url: response.url,
       };

@@ -7,6 +7,7 @@ import { fetchBoards } from "../slices/board";
 import uuid from "react-uuid";
 import ConfirmationDialog from "../components/ConfirmationDialog";
 import { fetchTodo } from "../slices/todo";
+import Message from "../components/Message";
 
 const Boards = () => {
   const [panes, setPanes] = useState([]);
@@ -85,7 +86,7 @@ const Boards = () => {
   }, [boards]);
 
   useEffect(() => {
-    const boardId = boards.list.length && boards.list[activeTab]._id;
+    const boardId = boards.list.length && boards.list[activeTab]?._id;
     if (boardId) {
       dispatch(fetchTodo(boardId));
     }
@@ -110,6 +111,7 @@ const Boards = () => {
           type={deleteType}
         />
       )}
+      <Message />
     </>
   );
 };

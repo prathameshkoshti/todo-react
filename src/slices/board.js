@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { client } from "../api/client";
+import { setMessage } from "./message";
 
 export const fetchBoards = createAsyncThunk("boards/fetch", async () => {
   const response = await client.get("boards");
@@ -11,6 +12,20 @@ export const deleteBoard = createAsyncThunk(
   async (id, { dispatch }) => {
     const response = await client.delete(`boards/${id}`);
     dispatch(fetchBoards());
+    dispatch(
+      setMessage({
+        type: response.success ? "success" : "error",
+        message: response.message,
+      }),
+    );
+    setTimeout(() => {
+      dispatch(
+        setMessage({
+          type: "",
+          message: "",
+        }),
+      );
+    }, 2000);
     return response.data;
   },
 );
@@ -20,6 +35,20 @@ export const createBoard = createAsyncThunk(
   async (params, { dispatch }) => {
     const response = await client.post("boards", { ...params });
     dispatch(fetchBoards());
+    dispatch(
+      setMessage({
+        type: response.success ? "success" : "error",
+        message: response.message,
+      }),
+    );
+    setTimeout(() => {
+      dispatch(
+        setMessage({
+          type: "",
+          message: "",
+        }),
+      );
+    }, 2000);
     return response.data;
   },
 );
@@ -43,8 +72,5 @@ export const boardSlice = createSlice({
     },
   },
 });
-
-export const selectBoard = (state, id) =>
-  state.boards.find((board) => board.id === id);
 
 export default boardSlice.reducer;

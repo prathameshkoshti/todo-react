@@ -3,9 +3,9 @@ import { Menu, Icon, Header } from "semantic-ui-react";
 
 function Navbar() {
   return (
-    <Menu className="navbar">
+    <Menu className="navbar inverted">
       <Menu.Header>
-        <Header size="large">
+        <Header size="large" className="inverted">
           <Icon name="check square"></Icon>
           Todo App
         </Header>
