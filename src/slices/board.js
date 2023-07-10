@@ -67,7 +67,7 @@ export const boardSlice = createSlice({
       state.loading = false;
       state.list = payload.boards;
     },
-    [fetchBoards.pending]: (state) => {
+    [fetchBoards.rejected]: (state) => {
       state.loading = false;
     },
   },

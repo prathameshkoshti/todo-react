@@ -95,7 +95,7 @@ export const todoSlice = createSlice({
       state.list = payload.todo;
       state.selectedBoard = payload.boardId;
     },
-    [fetchTodo.pending]: (state) => {
+    [fetchTodo.rejected]: (state) => {
       state.loading = false;
     },
   },

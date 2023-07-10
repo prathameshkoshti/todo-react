@@ -21,9 +21,9 @@ function Board({ board, deleteTodo }) {
       } else {
         pendingTodo.push(todo);
       }
-      setPendingTodo(pendingTodo);
-      setCompletedTodo(completedTodo);
     });
+    setPendingTodo(pendingTodo);
+    setCompletedTodo(completedTodo);
   }, [todoList]);
 
   return (

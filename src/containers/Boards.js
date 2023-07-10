@@ -8,6 +8,7 @@ import uuid from "react-uuid";
 import ConfirmationDialog from "../components/ConfirmationDialog";
 import { fetchTodo } from "../slices/todo";
 import Message from "../components/Message";
+import Loader from "../components/Loader";
 
 const Boards = () => {
   const [panes, setPanes] = useState([]);
@@ -112,6 +113,7 @@ const Boards = () => {
         />
       )}
       <Message />
+      <Loader />
     </>
   );
 };
