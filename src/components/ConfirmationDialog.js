@@ -19,6 +19,10 @@ export default function ConfirmationDialog({ closeModal, itemToDelete, type }) {
       <Modal.Header>Confirmation</Modal.Header>
       <Modal.Content>
         Are you sure you want to delete {type}: {itemToDelete?.name}
+        <br />
+        {type === "board"
+          ? "This will also delete corresponding todo items."
+          : null}
       </Modal.Content>
       <Modal.Actions>
         <Button onClick={closeModal}>Cancel</Button>

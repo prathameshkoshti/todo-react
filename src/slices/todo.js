@@ -20,7 +20,7 @@ export const completeTodo = createAsyncThunk(
   "boards/create",
   async (id, { dispatch, getState }) => {
     const state = getState();
-    const response = await client.put(`todo/${id}`);
+    const response = await client.patch(`todo/complete/${id}`);
     dispatch(fetchTodo(state.todo.selectedBoard));
     return response.data;
   },

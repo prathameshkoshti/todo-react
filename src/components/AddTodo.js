@@ -27,7 +27,7 @@ const AddTodo = ({ board }) => {
   return (
     <div className="add-todo">
       <Header className="board-name" size="medium">
-        Viewing board: {board?.title}
+        Viewing board: {board?.name}
       </Header>
       <Input
         value={todo}

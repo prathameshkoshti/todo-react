@@ -92,7 +92,7 @@ const Boards = () => {
         panes={panes}
         onTabChange={handleChange}
       />
-      <Board board={boards[activeTab]} />
+      {boards.list.length ? <Board board={boards?.list[activeTab]} /> : null}
       <AddBoard closeModal={closeModal} open={open} />
       {itemToDelete && (
         <ConfirmationDialog
