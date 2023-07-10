@@ -1,16 +1,24 @@
-import React from 'react';
-import { Checkbox, Icon, Divider } from 'semantic-ui-react';
+import React from "react";
+import { Checkbox, Icon } from "semantic-ui-react";
+import PropTypes from "prop-types";
 
 const Todo = ({ todo }) => {
-    return (
-        <div className='todo'>
-            {
-                todo.isComplete ?
-                todo.title : (<Checkbox onChange={(event) => {}} label={todo.title} />)
-            }
-            <Icon name="close" onClick={() => {}} />
-        </div>
-    );
-}
+  const completeTodo = () => {};
+
+  return (
+    <div className="todo">
+      {todo.isComplete ? (
+        todo.title
+      ) : (
+        <Checkbox onChange={completeTodo} label={todo.title} />
+      )}
+      <Icon name="close" onClick={() => {}} />
+    </div>
+  );
+};
+
+Todo.propTypes = {
+  todo: PropTypes.object,
+};
 
 export default Todo;

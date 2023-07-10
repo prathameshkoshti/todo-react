@@ -1,72 +1,104 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Icon, Tab } from 'semantic-ui-react';
-import { useSelector, useDispatch } from 'react-redux';
-import Board from '../components/Board';
+import React, { useEffect, useState } from "react";
+import { Icon, Tab } from "semantic-ui-react";
+import { useSelector, useDispatch } from "react-redux";
+import Board from "../components/Board";
+import AddBoard from "../components/AddBoard";
+import { fetchBoards } from "../slices/board";
+import uuid from "react-uuid";
+import ConfirmationDialog from "../components/ConfirmationDialog";
 
-const boards = [
-    {
-        id: 1,
-        title: 'Board1',
-    },
-    {
-        id: 2,
-        title: 'Board2',
-    },
-    {
-        id: 3,
-        title: 'Board3',
-    },
-    {
-        id: 4,
-        title: 'Board4',
-    },
-    {
-        id: 5,
-        title: 'Board5',
-    },
-]
-const Boards = ({  }) => {
+const Boards = () => {
+  const [panes, setPanes] = useState([]);
+  const [activeTab, setActiveTab] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState(null);
+  const dispatch = useDispatch();
 
-    const [panes, setPanes] = useState([]);
-    const [activetab, setActiveTab] = useState(0);
+  const boards = useSelector((state) => state.board);
 
-    const deleteBoard = (event, id) => {
-        event.stopPropagation();
-        console.log(id);
-    }
+  useEffect(() => {
+    dispatch(fetchBoards());
+  }, [dispatch]);
 
-    const createNewBoard = () => {
+  const deleteBoard = (event, id) => {
+    event.stopPropagation();
+    const board = boards.list.find((board) => board._id === id);
+    setItemToDelete(board);
+  };
 
-    }
+  const openModal = () => {
+    setOpen(true);
+  };
 
-    const handleChange = (e, data) => {
-        setActiveTab(data.activeIndex);
-    }
+  const closeModal = () => {
+    setOpen(false);
+  };
 
-    useEffect(() => {
-        const panes = boards.map((board, index) => {
-            return ({
-                menuItem: {
-                    key: board.id,
-                    content: (
-                        <div className='tab'>
-                            {board.title}
-                            <Icon name='close' size='small' onClick={(event) => deleteBoard(event, board.id)} />
-                        </div>
-                    )
-                },
-            })
-        });
+  const closeDeleteModal = () => {
+    setItemToDelete(null);
+  };
 
-        setPanes(panes);
-    }, [boards]);
+  const handleChange = (e, data) => {
+    setActiveTab(data.activeIndex);
+  };
 
-    return (
-        <>
-            <Tab className="tabs" defaultActiveIndex={activetab} ref={boards} panes={panes} onTabChange={handleChange} />
-            <Board board={boards[activetab]} />
-        </>
-    )
-}
+  useEffect(() => {
+    const panes = boards?.list.map((board) => {
+      return {
+        menuItem: {
+          key: board.id,
+          content: (
+            <div className="tab" key={uuid()}>
+              {board.name}
+              <Icon
+                name="close"
+                size="small"
+                onClick={(event) => deleteBoard(event, board._id)}
+              />
+            </div>
+          ),
+        },
+      };
+    });
+
+    panes.push({
+      menuItem: {
+        key: "create-board-tab",
+        content: (
+          <div className="tab add-new-tab" onClick={openModal}>
+            <Icon name="plus" size="small" />
+            Add new board
+          </div>
+        ),
+      },
+    });
+
+    setPanes(panes);
+  }, [boards]);
+
+  useEffect(() => {
+    // dispatch();
+  }, [panes, activeTab]);
+
+  return (
+    <>
+      <Tab
+        className="tabs"
+        defaultActiveIndex={activeTab}
+        panes={panes}
+        onTabChange={handleChange}
+      />
+      <Board board={boards[activeTab]} />
+      <AddBoard closeModal={closeModal} open={open} />
+      {itemToDelete && (
+        <ConfirmationDialog
+          closeModal={closeDeleteModal}
+          itemToDelete={itemToDelete}
+          type="board"
+        />
+      )}
+    </>
+  );
+};
 
 export default Boards;

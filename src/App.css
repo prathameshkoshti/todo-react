@@ -58,6 +58,11 @@
   align-items: center;
 }
 
+.tab.add-new-tab {
+  width: 150px;
+  display: block;
+}
+
 .add-todo {
   display: flex;
   flex-direction: column;

@@ -1,26 +1,50 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { client } from "../api/client";
 
-export const boardSlice = createSlice({
-    name: 'todos',
-    initialState: {
-        boards: [],
-    },
-    reducers: {
-        addBoard: (state, action) => {
-            state = [
-                ...state,
-                {
-                    id: action.payload.id,
-                    title: action.payload.title,
-                }
-            ]
-        },
-        deleteBoard: (state) => {
-
-        },
-    }
+export const fetchBoards = createAsyncThunk("boards/fetch", async () => {
+  const response = await client.get("boards");
+  return response.data;
 });
 
-export const { addBoard, deleteBoard } = boardSlice.actions
+export const deleteBoardById = createAsyncThunk(
+  "boards/delete",
+  async (id, { dispatch }) => {
+    const response = await client.delete(`boards/${id}`);
+    dispatch(fetchBoards());
+    return response.data;
+  },
+);
 
-export default boardSlice.reducer
+export const createBoard = createAsyncThunk(
+  "boards/create",
+  async (params, { dispatch }) => {
+    const response = await client.post("boards", { ...params });
+    dispatch(fetchBoards());
+    return response.data;
+  },
+);
+
+export const boardSlice = createSlice({
+  name: "board",
+  initialState: {
+    list: [],
+  },
+  reducers: {},
+  extraReducers: {
+    [fetchBoards.pending]: (state) => {
+      state.loading = true;
+    },
+    [fetchBoards.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.list = payload.boards;
+    },
+    [fetchBoards.pending]: (state) => {
+      state.loading = false;
+    },
+  },
+});
+
+export const selectBoard = (state, id) =>
+  state.boards.find((board) => board.id === id);
+
+export default boardSlice.reducer;

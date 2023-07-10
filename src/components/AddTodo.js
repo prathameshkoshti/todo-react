@@ -1,12 +1,22 @@
 import React, { useState } from "react";
 import { Header, Input, Button, Icon } from "semantic-ui-react";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../slices/todo";
+import PropTypes from "prop-types";
 
 const AddTodo = ({ board }) => {
   const [todo, setTodo] = useState("");
 
-  const handleAddTodo = (event) => {
+  const dispatch = useDispatch();
+
+  const handleAddTodo = () => {
     if (todo !== "") {
-      console.log(event, todo);
+      dispatch(
+        addTodo({
+          id: 1,
+          title: todo,
+        })
+      );
     } else {
       console.log("add input");
     }
@@ -15,7 +25,7 @@ const AddTodo = ({ board }) => {
   return (
     <div className="add-todo">
       <Header className="board-name" size="medium">
-        Viewing board: {board.title}
+        Viewing board: {board?.title}
       </Header>
       <Input
         value={todo}
@@ -32,6 +42,10 @@ const AddTodo = ({ board }) => {
       </Input>
     </div>
   );
+};
+
+AddTodo.propTypes = {
+  board: PropTypes.object,
 };
 
 export default AddTodo;
