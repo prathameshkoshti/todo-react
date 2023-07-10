@@ -4,7 +4,7 @@ import { Header, Divider } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import uuid from "react-uuid";
 
-function TodoList({ title, todos }) {
+function TodoList({ title, todoList }) {
   return (
     <>
       <Header className="section-header" size="small">
@@ -12,7 +12,7 @@ function TodoList({ title, todos }) {
       </Header>
       <Divider className="no-spacing" />
       <div className="todo-list">
-        {todos.map((todo) => (
+        {todoList.map((todo) => (
           <div key={uuid()}>
             <Todo todo={todo} />
             <Divider />
@@ -25,7 +25,7 @@ function TodoList({ title, todos }) {
 
 TodoList.propTypes = {
   title: PropTypes.string,
-  todos: PropTypes.array,
+  todoList: PropTypes.array,
 };
 
 export default TodoList;

@@ -6,7 +6,7 @@ export const fetchBoards = createAsyncThunk("boards/fetch", async () => {
   return response.data;
 });
 
-export const deleteBoardById = createAsyncThunk(
+export const deleteBoard = createAsyncThunk(
   "boards/delete",
   async (id, { dispatch }) => {
     const response = await client.delete(`boards/${id}`);

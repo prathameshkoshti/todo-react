@@ -3,18 +3,19 @@ import { Grid } from "semantic-ui-react";
 import TodoList from "./TodoList";
 import AddTodo from "./AddTodo";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 function Board({ board }) {
   const [completedTodo, setCompletedTodo] = useState([]);
   const [pendingTodo, setPendingTodo] = useState([]);
 
-  const todos = [];
+  const todoList = useSelector((state) => state.todo.list);
 
   useEffect(() => {
     const completedTodo = [];
     const pendingTodo = [];
 
-    todos.forEach((todo) => {
+    todoList.forEach((todo) => {
       if (todo.isComplete) {
         completedTodo.push(todo);
       } else {
@@ -23,19 +24,19 @@ function Board({ board }) {
       setPendingTodo(pendingTodo);
       setCompletedTodo(completedTodo);
     });
-  }, [todos]);
+  }, [todoList]);
 
   return (
     <Grid className="board" columns={3} divided>
       <Grid.Row>
         <Grid.Column width={4}>
-          <TodoList title="New Tasks" todos={pendingTodo} />
+          <TodoList title="New Tasks" todoList={pendingTodo} />
         </Grid.Column>
         <Grid.Column width={8}>
           <AddTodo board={board} />
         </Grid.Column>
         <Grid.Column width={4}>
-          <TodoList title="Completed Tasks" todos={completedTodo} />
+          <TodoList title="Completed Tasks" todoList={completedTodo} />
         </Grid.Column>
       </Grid.Row>
     </Grid>

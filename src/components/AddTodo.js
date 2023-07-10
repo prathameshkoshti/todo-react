@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Header, Input, Button, Icon } from "semantic-ui-react";
 import { useDispatch } from "react-redux";
-import { addTodo } from "../slices/todo";
+import { createTodo } from "../slices/todo";
 import PropTypes from "prop-types";
 
 const AddTodo = ({ board }) => {
@@ -12,10 +12,9 @@ const AddTodo = ({ board }) => {
   const handleAddTodo = () => {
     if (todo !== "") {
       dispatch(
-        addTodo({
-          id: 1,
-          title: todo,
-        })
+        createTodo({
+          name: todo,
+        }),
       );
     } else {
       console.log("add input");

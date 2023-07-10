@@ -1,14 +1,14 @@
 import React from "react";
 import { Modal, Button } from "semantic-ui-react";
 import { useDispatch } from "react-redux";
-import { deleteBoardById } from "../slices/board";
+import { deleteBoard } from "../slices/board";
 import PropTypes from "prop-types";
 
 export default function ConfirmationDialog({ closeModal, itemToDelete, type }) {
   const dispatch = useDispatch();
 
   const confirmDelete = () => {
-    dispatch(deleteBoardById(itemToDelete._id));
+    dispatch(deleteBoard(itemToDelete._id));
     setTimeout(() => {
       closeModal();
     }, 1000);

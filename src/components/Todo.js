@@ -8,9 +8,9 @@ const Todo = ({ todo }) => {
   return (
     <div className="todo">
       {todo.isComplete ? (
-        todo.title
+        todo.desc
       ) : (
-        <Checkbox onChange={completeTodo} label={todo.title} />
+        <Checkbox onChange={completeTodo} label={todo.desc} />
       )}
       <Icon name="close" onClick={() => {}} />
     </div>

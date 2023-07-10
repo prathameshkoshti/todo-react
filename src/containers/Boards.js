@@ -6,6 +6,7 @@ import AddBoard from "../components/AddBoard";
 import { fetchBoards } from "../slices/board";
 import uuid from "react-uuid";
 import ConfirmationDialog from "../components/ConfirmationDialog";
+import { fetchTodo } from "../slices/todo";
 
 const Boards = () => {
   const [panes, setPanes] = useState([]);
@@ -77,7 +78,10 @@ const Boards = () => {
   }, [boards]);
 
   useEffect(() => {
-    // dispatch();
+    const boardId = boards.list.length && boards.list[activeTab]._id;
+    if (boardId) {
+      dispatch(fetchTodo(boardId));
+    }
   }, [panes, activeTab]);
 
   return (
