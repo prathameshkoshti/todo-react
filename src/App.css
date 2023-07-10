@@ -1,3 +1,7 @@
+html {
+  font-size: 16px;
+}
+
 .navbar.menu {
   display: flex;
   justify-content: center;
@@ -53,7 +57,7 @@
 }
 
 .tab {
-  width: 100px;
+  min-width: 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -66,10 +70,12 @@
 
 .tab>i {
   margin-top: 2px;
+  margin-left: 1rem;
 }
 
 .tab.add-new-tab>i {
   margin-right: 1rem;
+  margin-left: 0;
 }
 .add-todo {
   display: flex;
