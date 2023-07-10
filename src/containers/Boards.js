@@ -67,6 +67,7 @@ const Boards = () => {
               />
             </div>
           ),
+          onClick: handleChange,
         },
       };
     });
@@ -75,11 +76,12 @@ const Boards = () => {
       menuItem: {
         key: "create-board-tab",
         content: (
-          <div className="tab add-new-tab" onClick={openModal}>
+          <div className="tab add-new-tab">
             <Icon name="plus" size="small" />
             Add new board
           </div>
         ),
+        onClick: openModal,
       },
     });
 
@@ -100,6 +102,7 @@ const Boards = () => {
         defaultActiveIndex={activeTab}
         panes={panes}
         onTabChange={handleChange}
+        menu={{ pointing: true }}
       />
       {boards.list.length ? (
         <Board deleteTodo={deleteTodo} board={boards?.list[activeTab]} />

@@ -27,7 +27,7 @@ const AddTodo = ({ board }) => {
   return (
     <div className="add-todo inverted">
       <Header className="board-name" size="medium">
-        Viewing board: {board?.name}
+        {board?.name}
       </Header>
       <Input
         value={todo}
@@ -37,11 +37,7 @@ const AddTodo = ({ board }) => {
         action
       >
         <input />
-        <Button
-          onClick={handleAddTodo}
-          primary
-          type="submit"
-        >
+        <Button onClick={handleAddTodo} color="black" type="submit">
           <Icon name="add" />
           Add
         </Button>

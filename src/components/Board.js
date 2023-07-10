@@ -32,7 +32,7 @@ function Board({ board, deleteTodo }) {
         <Grid.Column width={4}>
           <TodoList
             deleteTodo={deleteTodo}
-            title="New Tasks"
+            title="Let's do these..."
             todoList={pendingTodo}
           />
         </Grid.Column>
@@ -42,7 +42,11 @@ function Board({ board, deleteTodo }) {
         <Grid.Column width={4}>
           <TodoList
             deleteTodo={deleteTodo}
-            title="Completed Tasks"
+            title={
+              completedTodo.length
+                ? "Woohoo! These were easy."
+                : "Let's finish few tasks"
+            }
             todoList={completedTodo}
           />
         </Grid.Column>

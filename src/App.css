@@ -64,6 +64,13 @@
   display: block;
 }
 
+.tab>i {
+  margin-top: 2px;
+}
+
+.tab.add-new-tab>i {
+  margin-right: 1rem;
+}
 .add-todo {
   display: flex;
   flex-direction: column;
