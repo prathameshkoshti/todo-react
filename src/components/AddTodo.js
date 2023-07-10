@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Header, Input, Button, Icon } from "semantic-ui-react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createTodo } from "../slices/todo";
 import PropTypes from "prop-types";
 
@@ -8,14 +8,17 @@ const AddTodo = ({ board }) => {
   const [todo, setTodo] = useState("");
 
   const dispatch = useDispatch();
+  const selectedBoard = useSelector((state) => state.todo.selectedBoard);
 
   const handleAddTodo = () => {
     if (todo !== "") {
       dispatch(
         createTodo({
-          name: todo,
+          desc: todo,
+          boardId: selectedBoard,
         }),
       );
+      setTodo("");
     } else {
       console.log("add input");
     }
