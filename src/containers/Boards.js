@@ -13,6 +13,7 @@ const Boards = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [open, setOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
+  const [deleteType, setDeleteType] = useState("");
   const dispatch = useDispatch();
 
   const boards = useSelector((state) => state.board);
@@ -25,6 +26,12 @@ const Boards = () => {
     event.stopPropagation();
     const board = boards.list.find((board) => board._id === id);
     setItemToDelete(board);
+    setDeleteType("board");
+  };
+
+  const deleteTodo = (todo) => {
+    setItemToDelete(todo);
+    setDeleteType("todo");
   };
 
   const openModal = () => {
@@ -47,7 +54,7 @@ const Boards = () => {
     const panes = boards?.list.map((board) => {
       return {
         menuItem: {
-          key: board.id,
+          key: board._id,
           content: (
             <div className="tab" key={uuid()}>
               {board.name}
@@ -92,13 +99,15 @@ const Boards = () => {
         panes={panes}
         onTabChange={handleChange}
       />
-      {boards.list.length ? <Board board={boards?.list[activeTab]} /> : null}
+      {boards.list.length ? (
+        <Board deleteTodo={deleteTodo} board={boards?.list[activeTab]} />
+      ) : null}
       <AddBoard closeModal={closeModal} open={open} />
       {itemToDelete && (
         <ConfirmationDialog
           closeModal={closeDeleteModal}
           itemToDelete={itemToDelete}
-          type="board"
+          type={deleteType}
         />
       )}
     </>

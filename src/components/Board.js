@@ -5,7 +5,7 @@ import AddTodo from "./AddTodo";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
-function Board({ board }) {
+function Board({ board, deleteTodo }) {
   const [completedTodo, setCompletedTodo] = useState([]);
   const [pendingTodo, setPendingTodo] = useState([]);
 
@@ -30,13 +30,21 @@ function Board({ board }) {
     <Grid className="board" columns={3} divided>
       <Grid.Row>
         <Grid.Column width={4}>
-          <TodoList title="New Tasks" todoList={pendingTodo} />
+          <TodoList
+            deleteTodo={deleteTodo}
+            title="New Tasks"
+            todoList={pendingTodo}
+          />
         </Grid.Column>
         <Grid.Column width={8}>
           <AddTodo board={board} />
         </Grid.Column>
         <Grid.Column width={4}>
-          <TodoList title="Completed Tasks" todoList={completedTodo} />
+          <TodoList
+            deleteTodo={deleteTodo}
+            title="Completed Tasks"
+            todoList={completedTodo}
+          />
         </Grid.Column>
       </Grid.Row>
     </Grid>
@@ -45,6 +53,7 @@ function Board({ board }) {
 
 Board.propTypes = {
   board: PropTypes.object,
+  deleteTodo: PropTypes.func,
 };
 
 export default Board;

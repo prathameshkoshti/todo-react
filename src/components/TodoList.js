@@ -4,7 +4,7 @@ import { Header, Divider } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import uuid from "react-uuid";
 
-function TodoList({ title, todoList }) {
+function TodoList({ title, todoList, deleteTodo }) {
   return (
     <>
       <Header className="section-header" size="small">
@@ -14,7 +14,7 @@ function TodoList({ title, todoList }) {
       <div className="todo-list">
         {todoList.map((todo) => (
           <div key={uuid()}>
-            <Todo todo={todo} />
+            <Todo deleteTask={deleteTodo} todo={todo} />
             <Divider />
           </div>
         ))}
@@ -26,6 +26,7 @@ function TodoList({ title, todoList }) {
 TodoList.propTypes = {
   title: PropTypes.string,
   todoList: PropTypes.array,
+  deleteTodo: PropTypes.func,
 };
 
 export default TodoList;

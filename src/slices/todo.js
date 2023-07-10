@@ -7,7 +7,7 @@ export const fetchTodo = createAsyncThunk("todo/fetch", async (boardId) => {
 });
 
 export const createTodo = createAsyncThunk(
-  "boards/create",
+  "todo/create",
   async (params, { dispatch, getState }) => {
     const state = getState();
     const response = await client.post("todo", { ...params });
@@ -17,7 +17,7 @@ export const createTodo = createAsyncThunk(
 );
 
 export const completeTodo = createAsyncThunk(
-  "boards/create",
+  "todo/complete",
   async (id, { dispatch, getState }) => {
     const state = getState();
     const response = await client.patch(`todo/complete/${id}`);
@@ -27,10 +27,10 @@ export const completeTodo = createAsyncThunk(
 );
 
 export const deleteTodo = createAsyncThunk(
-  "boards/delete",
+  "todo/delete",
   async (id, { dispatch, getState }) => {
     const state = getState();
-    const response = await client.delete(`boards/${id}`);
+    const response = await client.delete(`todo/${id}`);
     dispatch(fetchTodo(state.todo.selectedBoard));
     return response.data;
   },
@@ -50,7 +50,7 @@ export const todoSlice = createSlice({
     [fetchTodo.fulfilled]: (state, { payload }) => {
       state.loading = false;
       state.list = payload.todo;
-      state.selectedBoard = payload.todo[0].boardId;
+      state.selectedBoard = payload.boardId;
     },
     [fetchTodo.pending]: (state) => {
       state.loading = false;

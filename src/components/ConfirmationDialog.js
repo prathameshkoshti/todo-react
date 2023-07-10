@@ -3,12 +3,17 @@ import { Modal, Button } from "semantic-ui-react";
 import { useDispatch } from "react-redux";
 import { deleteBoard } from "../slices/board";
 import PropTypes from "prop-types";
+import { deleteTodo } from "../slices/todo";
 
 export default function ConfirmationDialog({ closeModal, itemToDelete, type }) {
   const dispatch = useDispatch();
 
   const confirmDelete = () => {
-    dispatch(deleteBoard(itemToDelete._id));
+    if (type === "board") {
+      dispatch(deleteBoard(itemToDelete._id));
+    } else {
+      dispatch(deleteTodo(itemToDelete._id));
+    }
     setTimeout(() => {
       closeModal();
     }, 1000);
@@ -18,7 +23,8 @@ export default function ConfirmationDialog({ closeModal, itemToDelete, type }) {
     <Modal open={itemToDelete?._id && type}>
       <Modal.Header>Confirmation</Modal.Header>
       <Modal.Content>
-        Are you sure you want to delete {type}: {itemToDelete?.name}
+        Are you sure you want to delete {type}:{" "}
+        {itemToDelete?.name || itemToDelete?.desc}
         <br />
         {type === "board"
           ? "This will also delete corresponding todo items."
